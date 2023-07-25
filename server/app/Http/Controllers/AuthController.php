@@ -39,7 +39,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make(
                 $request->password
-            )
+            ),
+            'google_id' => null
         ]);
 
         return $this->success([
