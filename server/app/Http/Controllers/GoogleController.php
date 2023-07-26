@@ -38,14 +38,16 @@ class GoogleController extends Controller
                 ]);
             }
 
-            // Auth::login($dbUser);
+            Auth::login($dbUser);
 
             $dbUser->createToken('auth token for ' . $dbUser->name)->plainTextToken;
 
-            return $this->success([
-                'user' => $dbUser,
-                'token' => $dbUser->createToken('auth token for ' . $dbUser->name)->plainTextToken
-            ]);
+            // return $this->success([
+            //     'user' => $dbUser,
+            //     'token' => $dbUser->createToken('auth token for ' . $dbUser->name)->plainTextToken
+            // ]);
+
+            return redirect(env('FRONTEND_URL', 'http://localhost:3000'));
         } catch (\Throwable $th) {
             throw $th;
         }

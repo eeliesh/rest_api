@@ -20,6 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
         user.value = data._rawValue as User;
     }
 
+
     async function login(credentials: Credentials) {
         await useApiFetch('/sanctum/csrf-cookie');
     
@@ -46,6 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
     async function loginWithGoogle() {
         // open backend google login page
         window.open('http://localhost:8000/api/oauth/google/login', '_self');
+        
     }
 
     return {user, login, isLoggedIn, fetchUser, loginWithGoogle};
