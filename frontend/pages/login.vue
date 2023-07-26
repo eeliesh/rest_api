@@ -1,27 +1,16 @@
 <script lang="ts" setup>
+  import {ref} from 'vue';
+  import {useAuthStore} from '../stores/useAuthStore';
+
   const form = ref({
     email: 'valentintean@gmail.com',
     password: '123456789',
   });
 
+  const auth = useAuthStore();
+
   async function handleLogin() {
-    await useFetch('http://localhost:8000/sanctum/csrf-cookie', {
-      credentials: 'include',
-    });
-
-    const token = useCookie('XSRF-TOKEN');
-
-    const {data} = await useFetch('http://localhost:8000/api/login', {
-      method: 'POST',
-      credentials: 'include',
-      body: form.value,
-      watch: false,
-      headers: {
-        'X-XSRF-TOKEN': token.value as string,
-      }
-    });
-
-    console.log(data._rawValue.data);
+    const {error} = await auth.login(form.value);
   }
 </script>
 
@@ -36,6 +25,9 @@
 
       <button>Login</button>
     </form>
+    <div>
+      <button @click="auth.loginWithGoogle()">Login with Google</button>
+    </div>
   </div>
 </template>
 

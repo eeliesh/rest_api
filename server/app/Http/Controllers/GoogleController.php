@@ -40,6 +40,8 @@ class GoogleController extends Controller
 
             // Auth::login($dbUser);
 
+            $dbUser->createToken('auth token for ' . $dbUser->name)->plainTextToken;
+
             return $this->success([
                 'user' => $dbUser,
                 'token' => $dbUser->createToken('auth token for ' . $dbUser->name)->plainTextToken
